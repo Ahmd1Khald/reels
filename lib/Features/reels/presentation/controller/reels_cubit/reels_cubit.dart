@@ -12,6 +12,13 @@ class ReelsCubit extends Cubit<ReelsState> {
   static ReelsCubit get(context) => BlocProvider.of(context);
   final ReelsRepo categoryRepo;
 
+  List<String> reelsVideos = [
+    "d95PPykB2vE",
+    "_Td7JjCTfyc",
+    "X7jWB6NMB74",
+    "kLGaoYbR7LA",
+  ];
+
   // Future<void> fetchItems({String? status}) async {
   //   emit(LoadingItemsReelsState());
   //   var result = await categoryRepo.fetchCatalog(

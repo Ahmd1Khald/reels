@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reels/Features/reels/presentation/views/widgets/reels_video.dart';
 
 import '../../../../Core/utiles/service_locator.dart';
 import '../../data/repos/reels_repo_imp.dart';
@@ -21,7 +22,18 @@ class ReelsScreen extends StatelessWidget {
           return Scaffold(
             body: SafeArea(
               child: Column(
-                children: [],
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      itemBuilder: (context, index) => ReelsVideoWidget(
+                        videoID: ReelsCubit.get(context).reelsVideos[index],
+                      ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: 4,
+                    ),
+                  ),
+                ],
               ),
             ),
           );
