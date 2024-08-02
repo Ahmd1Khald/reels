@@ -19,8 +19,7 @@ class ReelsCubit extends Cubit<ReelsState> {
     "https://youtube.com/shorts/SpY6HQYkHuc?si=54d3iXpC-3vMoPJX",
   ];
 
-  List<ReelsModel>? realReelsVideos;
-
+  List<ReelsModel> realReelsVideos = [];
   Future<void> fetchReels() async {
     emit(LoadingFetchReelsState());
     var result = await reelsRepo.fetchReels();
@@ -28,6 +27,8 @@ class ReelsCubit extends Cubit<ReelsState> {
       emit(ErrorFetchReelsState(failure.message));
     }, (value) {
       realReelsVideos = value;
+      print("realReelsVideos++++++++++++++++");
+      print(realReelsVideos);
       emit(SuccessFetchReelsState(value));
     });
   }

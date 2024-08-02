@@ -1,9 +1,12 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:reels/Features/splash/splash_screen.dart';
 
+import 'Core/utiles/bloc_observer.dart';
 import 'Core/utiles/service_locator.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   setupServiceLocator();
   runApp(const MyApp());
 }

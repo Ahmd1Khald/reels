@@ -14,7 +14,7 @@ class ErrorFetchReelsState extends ReelsState {
 }
 
 class SuccessFetchReelsState extends ReelsState {
-  final List<ReelsModel> value;
+  final List<ReelsModel>? value;
 
   SuccessFetchReelsState(this.value);
 }
