@@ -9,31 +9,25 @@ import 'reels_repo.dart';
 
 class ReelsRepoImpl implements ReelsRepo {
   @override
-  Future<Either<Failure, List<ReelsModel>>> fetchProduct() async {
+  Future<Either<Failure, List<ReelsModel>>> fetchReels() async {
     try {
       Response response = await DioHelper.getData(
-        url: "${ApiConst.baseUrl}admin/product/list",
-        options: Options(
-          headers: {
-            'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTNmYzg1ZjdiY2UwOTJlYjViYjU2OTMiLCJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluNTBAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjk4Njc4OTA2LCJleHAiOjE3MDEyNzA5MDZ9.DUqsYcEQcTQCKQLIqebNCAB2hwimj1_ze0OjrurkOXc',
-          },
-        ),
+        url: "${ApiConst.baseUrl}reels",
       ); // Replace with your API endpoint
 
       print("+++++++++++++response++++++++++++++");
-      print(response.data["products"]);
+      print(response.data["reels"]);
 
-      List<dynamic> brandsJson = response.data['products'];
+      List<dynamic> reelsJson = response.data['reels'];
 
-      List<ReelsModel> productsList =
-          await brandsJson.map((json) => ReelsModel.fromJson(json)).toList();
+      List<ReelsModel> reelsList =
+          reelsJson.map((json) => ReelsModel.fromJson(json)).toList();
 
-      print("+++++++++++++productsList++++++++++++++");
-      print(productsList[0].name);
-      return right(productsList);
+      print("+++++++++++++reelsList++++++++++++++");
+      print(reelsList);
+      return right(reelsList);
     } on Exception catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));

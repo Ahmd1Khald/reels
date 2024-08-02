@@ -1,22 +1,31 @@
 class ReelsModel {
   final String id;
-  final String admin;
-  final String name;
-  final int v;
+  final String url;
+  final DateTime createdAt;
+  final DateTime expiresAt;
 
   ReelsModel({
     required this.id,
-    required this.admin,
-    required this.name,
-    required this.v,
+    required this.url,
+    required this.createdAt,
+    required this.expiresAt,
   });
 
   factory ReelsModel.fromJson(Map<String, dynamic> json) {
     return ReelsModel(
-      id: json['_id'],
-      admin: json['admin'],
-      name: json['name'],
-      v: json['__v'],
+      id: json['_id'] as String,
+      url: json['url'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'url': url,
+      'createdAt': createdAt.toIso8601String(),
+      'expiresAt': expiresAt.toIso8601String(),
+    };
   }
 }

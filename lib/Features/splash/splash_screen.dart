@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
       splash: 'assets/images/shopping_cart.png',
       splashIconSize: 90,
       nextScreen: const ReelsScreen(),
-      backgroundColor: Colors.deepPurpleAccent,
+      backgroundColor: Colors.amberAccent,
       curve: Curves.bounceInOut,
       splashTransition: SplashTransition.slideTransition,
       //pageTransitionType: PageTransitionType.bottomToTop,

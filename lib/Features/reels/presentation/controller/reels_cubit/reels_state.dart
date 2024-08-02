@@ -5,16 +5,16 @@ abstract class ReelsState {}
 
 class ReelsInitialState extends ReelsState {}
 
-class LoadingMyItemsReelsState extends ReelsState {}
+class LoadingFetchReelsState extends ReelsState {}
 
-class ErrorMyItemsReelsState extends ReelsState {
+class ErrorFetchReelsState extends ReelsState {
   final String error;
 
-  ErrorMyItemsReelsState(this.error);
+  ErrorFetchReelsState(this.error);
 }
 
-class SuccessMyItemsReelsState extends ReelsState {
+class SuccessFetchReelsState extends ReelsState {
   final List<ReelsModel> value;
 
-  SuccessMyItemsReelsState(this.value);
+  SuccessFetchReelsState(this.value);
 }

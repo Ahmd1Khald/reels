@@ -16,12 +16,22 @@ class ReelsVideoWidget extends StatefulWidget {
 class _ReelsVideoWidgetState extends State<ReelsVideoWidget> {
   late YoutubePlayerController _controller;
 
+  String? extractVideoId(String url) {
+    final RegExp regExp = RegExp(r'\/shorts\/([a-zA-Z0-9_-]+)');
+    final match = regExp.firstMatch(url);
+
+    if (match != null && match.groupCount > 0) {
+      return match.group(1);
+    }
+    return null; // Return null if no match is found
+  }
+
   @override
   void initState() {
     print("widget.videoID  => ");
-    print(widget.videoID);
+    print(extractVideoId(widget.videoID));
     _controller = YoutubePlayerController(
-      initialVideoId: widget.videoID,
+      initialVideoId: extractVideoId(widget.videoID) ?? '',
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         showLiveFullscreenButton: false,

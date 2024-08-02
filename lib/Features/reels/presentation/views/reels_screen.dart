@@ -15,7 +15,7 @@ class ReelsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ReelsCubit(
         getIt.get<ReelsRepoImpl>(),
-      ),
+      )..fetchReels(),
       child: BlocConsumer<ReelsCubit, ReelsState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -27,7 +27,7 @@ class ReelsScreen extends StatelessWidget {
                   Expanded(
                     child: PageView.builder(
                       itemBuilder: (context, index) => ReelsVideoWidget(
-                        videoID: ReelsCubit.get(context).reelsVideos[index],
+                        videoID: ReelsCubit.get(context).testReelsVideos[index],
                       ),
                       scrollDirection: Axis.vertical,
                       itemCount: 4,
