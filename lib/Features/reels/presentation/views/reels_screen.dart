@@ -34,12 +34,10 @@ class _ReelsScreenState extends State<ReelsScreen> {
       child: BlocConsumer<ReelsCubit, ReelsState>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is SuccessFetchReelsState &&
-              ReelsCubit.get(context).realReelsVideos.isEmpty) {
+          if (ReelsCubit.get(context).realReelsVideos.isEmpty) {
             return const HomeScreen();
           }
-          if (state is SuccessFetchReelsState &&
-              ReelsCubit.get(context).realReelsVideos.isNotEmpty) {
+          if (ReelsCubit.get(context).realReelsVideos.isNotEmpty) {
             void onVideoEnd() {
               if (_currentPage <
                   (ReelsCubit.get(context).realReelsVideos.length - 1)) {
@@ -60,6 +58,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                   itemBuilder: (context, index) => ReelsVideoWidget(
                     videoID: ReelsCubit.get(context).realReelsVideos[index].url,
                     onVideoEnd: onVideoEnd, // Pass the callback
+                    cubit: ReelsCubit.get(context),
                   ),
                   scrollDirection: Axis.vertical,
                   itemCount: ReelsCubit.get(context).realReelsVideos.length,

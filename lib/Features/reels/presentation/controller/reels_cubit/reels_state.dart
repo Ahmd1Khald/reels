@@ -18,3 +18,17 @@ class SuccessFetchReelsState extends ReelsState {
 
   SuccessFetchReelsState(this.value);
 }
+
+class LoadingRemoveReelsState extends ReelsState {}
+
+class ErrorRemoveReelsState extends ReelsState {
+  final String error;
+
+  ErrorRemoveReelsState(this.error);
+}
+
+class SuccessRemoveReelsState extends ReelsState {
+  final WatchedReelsModel value;
+
+  SuccessRemoveReelsState(this.value);
+}

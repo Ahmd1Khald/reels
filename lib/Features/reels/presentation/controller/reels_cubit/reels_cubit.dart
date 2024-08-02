@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:reels/Features/reels/data/models/watched_model.dart';
 
 import '../../../data/models/reels_model.dart';
 import '../../../data/repos/reels_repo.dart';
@@ -30,6 +31,16 @@ class ReelsCubit extends Cubit<ReelsState> {
       print("realReelsVideos++++++++++++++++");
       print(realReelsVideos);
       emit(SuccessFetchReelsState(value));
+    });
+  }
+
+  Future<void> removeReels({required videoId}) async {
+    emit(LoadingRemoveReelsState());
+    var result = await reelsRepo.removeReels(videoId: videoId);
+    result.fold((failure) {
+      emit(ErrorRemoveReelsState(failure.message));
+    }, (value) {
+      emit(SuccessRemoveReelsState(value));
     });
   }
 }

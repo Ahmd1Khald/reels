@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reels/Features/reels/presentation/controller/reels_cubit/reels_cubit.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ReelsVideoWidget extends StatefulWidget {
@@ -6,9 +7,11 @@ class ReelsVideoWidget extends StatefulWidget {
     super.key,
     required this.videoID,
     required this.onVideoEnd,
+    required this.cubit,
   });
 
   final String videoID;
+  final ReelsCubit cubit;
   final VoidCallback onVideoEnd;
 
   @override
@@ -46,6 +49,7 @@ class _ReelsVideoWidgetState extends State<ReelsVideoWidget> {
         final playerState = _controller.value.playerState;
         if (playerState == PlayerState.ended) {
           widget.onVideoEnd();
+          widget.cubit.removeReels(videoId: widget.videoID);
         }
       }
     });

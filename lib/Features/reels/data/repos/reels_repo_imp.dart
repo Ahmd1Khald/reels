@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../Core/utiles/api_const.dart';
 import '../../../../core/errors/failures.dart';
-import '../../../../core/utiles/api_service.dart';
 import '../models/reels_model.dart';
 import '../models/watched_model.dart';
 import 'reels_repo.dart';
@@ -74,9 +72,13 @@ class ReelsRepoImpl implements ReelsRepo {
   Future<Either<Failure, WatchedReelsModel>> removeReels(
       {required String videoId}) async {
     try {
-      Response response = await DioHelper.getData(
-        url: "${ApiConst.baseUrl}reels/$videoId",
-      ); // Replace with your API endpoint
+      // Response response = await DioHelper.getData(
+      //   url: "${ApiConst.baseUrl}reels/$videoId",
+      // ); // Replace with your API endpoint
+
+      var response = {
+        "message": "Watched ++++",
+      };
 
       WatchedReelsModel model =
           WatchedReelsModel.fromJson(response as Map<String, dynamic>);
@@ -84,7 +86,7 @@ class ReelsRepoImpl implements ReelsRepo {
 
       // Convert WatchedReelsModel instance back to JSON
       Map<String, dynamic> json = model.toJson();
-      print(json); // Output: {message: watched}
+      print(json);
       return right(model);
     } on Exception catch (e) {
       if (e is DioException) {
