@@ -5,9 +5,11 @@ class ReelsVideoWidget extends StatefulWidget {
   const ReelsVideoWidget({
     super.key,
     required this.videoID,
+    required this.onVideoEnd,
   });
 
   final String videoID;
+  final VoidCallback onVideoEnd;
 
   @override
   State<ReelsVideoWidget> createState() => _ReelsVideoWidgetState();
@@ -28,8 +30,7 @@ class _ReelsVideoWidgetState extends State<ReelsVideoWidget> {
 
   @override
   void initState() {
-    print("widget.videoID  => ");
-    print(extractVideoId(widget.videoID));
+    super.initState();
     _controller = YoutubePlayerController(
       initialVideoId: extractVideoId(widget.videoID) ?? '',
       flags: const YoutubePlayerFlags(
@@ -38,7 +39,16 @@ class _ReelsVideoWidgetState extends State<ReelsVideoWidget> {
         mute: false,
       ),
     );
-    super.initState();
+
+    // Listen for player state changes
+    _controller.addListener(() {
+      if (_controller.value.isReady) {
+        final playerState = _controller.value.playerState;
+        if (playerState == PlayerState.ended) {
+          widget.onVideoEnd();
+        }
+      }
+    });
   }
 
   @override
@@ -55,12 +65,12 @@ class _ReelsVideoWidgetState extends State<ReelsVideoWidget> {
         showVideoProgressIndicator: true,
         progressIndicatorColor: Colors.amber,
         onReady: () {
-          print('Player is ready.++++++++++++++++');
+          print('Player is ready.');
         },
       ),
       builder: (context, player) {
         return Container(
-          width: 30,
+          width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: player,
         );
